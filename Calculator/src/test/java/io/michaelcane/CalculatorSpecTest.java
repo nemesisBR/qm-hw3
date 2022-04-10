@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 
-public class CalculatorSpecTests {
+public class CalculatorSpecTest {
 
     Calculator calculator;
 
@@ -25,7 +25,6 @@ public class CalculatorSpecTests {
          * This method should take two values (double)
          * and adds them together, returning the new value.
          */
-        System.out.println("HELLO");
         double expectedValue = 5;
         double actualValue = calculator.sum(2, 3);
         assertEquals("This should evaluate to 5", expectedValue, actualValue, delta);
