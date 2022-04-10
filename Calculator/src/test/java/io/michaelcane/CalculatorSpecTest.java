@@ -1,5 +1,6 @@
 package io.michaelcane;
 
+import io.michaelcane.Calculator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -9,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 
-public class CalculatorSpec {
+public class CalculatorSpecTests {
 
     Calculator calculator;
 
@@ -24,6 +25,7 @@ public class CalculatorSpec {
          * This method should take two values (double)
          * and adds them together, returning the new value.
          */
+        System.out.println("HELLO");
         double expectedValue = 5;
         double actualValue = calculator.sum(2, 3);
         assertEquals("This should evaluate to 5", expectedValue, actualValue, delta);
