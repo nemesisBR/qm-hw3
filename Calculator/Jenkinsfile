@@ -33,16 +33,16 @@ pipeline {
                 sh 'mvn -f "Calculator/pom.xml" pmd:pmd'
             }
         }
-        stage('Static Analysis: FindBugs') {
-                    steps {
-                        sh 'mvn -f "Calculator/pom.xml" clean install findbugs:findbugs'
-                    }
-                }
+//         stage('Static Analysis: FindBugs') {
+//                     steps {
+//                         sh 'mvn -f "Calculator/pom.xml" clean install findbugs:findbugs'
+//                     }
+//                 }
         stage('Generate Reports') {
             steps {
                 recordIssues(
                     enabledForFailure: true, aggregatingResults: true,
-                    tools: [java(), findBugs(pattern: 'Calculator/target/findbugsXml.xml', reportEncoding: 'UTF-8'), checkStyle(pattern: 'Calculator/target/checkstyle-result.xml', reportEncoding: 'UTF-8'), pmdParser(pattern: 'Calculator/target/pmd.xml', reportEncoding: 'UTF-8')]
+                    tools: [java(), checkStyle(pattern: 'Calculator/target/checkstyle-result.xml', reportEncoding: 'UTF-8'), pmdParser(pattern: 'Calculator/target/pmd.xml', reportEncoding: 'UTF-8')]
                 )
 
         }
