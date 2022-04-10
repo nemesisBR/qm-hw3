@@ -36,7 +36,7 @@ pipeline {
             steps {
                 recordIssues(
                     enabledForFailure: true, aggregatingResults: true,
-                    tools: [java(), checkStyle(pattern: ['Calculator/target/checkstyle-result.xml','Calculator/target/pmd.xml'], reportEncoding: 'UTF-8')]
+                    tools: [java(), checkStyle(pattern: 'Calculator/target/checkstyle-result.xml', reportEncoding: 'UTF-8'),pmd(pattern: 'Calculator/target/pmd.xml', reportEncoding: 'UTF-8')]
                 )
             }
         }
