@@ -10,14 +10,15 @@ pipeline {
             }
         }
         stage('Test') {
-                    steps {
-                        sh 'mvn -f "Calculator/pom.xml" test'
-                    }
-                }
+            steps {
+                sh 'mvn -f "Calculator/pom.xml" test'
+            }
+        }
         stage('Build') {
-                    steps {
-                        sh 'mvn -f "Calculator/pom.xml" clean package'
-                    }
-                }
+            steps {
+                sh 'mvn -f "Calculator/pom.xml" package'
+            }
+        }
+
     }
 }
