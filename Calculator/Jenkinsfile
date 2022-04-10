@@ -9,6 +9,28 @@ pipeline {
                 sh 'mvn -f "Calculator/pom.xml" clean'
             }
         }
+
+        stage('Static Analysis: CheckStyle') {
+                    steps {
+                        sh 'mvn -f "Calculator/pom.xml" checkstyle:checkstyle'
+                    }
+                }
+
+        stage('Static Analysis: PMD') {
+            steps {
+                sh 'mvn -f "Calculator/pom.xml" pmd:pmd'
+            }
+        }
+
+        stage('Generate Reports') {
+            steps {
+                recordIssues(
+                    enabledForFailure: true, aggregatingResults: true,
+                    tools: [java(), checkStyle(pattern: 'target/checkstyle-result.xml, target/pmd.xml', reportEncoding: 'UTF-8')]
+                )
+            }
+        }
+
         stage('Test') {
             steps {
                 sh 'mvn -f "Calculator/pom.xml" test'
