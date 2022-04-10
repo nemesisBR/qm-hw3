@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Static Analysis: FindBugs') {
                     steps {
-                        sh 'mvn -f "Calculator/pom.xml" findbugs:findbugs'
+                        sh 'mvn -f "Calculator/pom.xml" clean install findbugs:findbugs'
                     }
                 }
         stage('Generate Reports') {
