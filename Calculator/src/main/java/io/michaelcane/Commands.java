@@ -1,12 +1,16 @@
 package io.michaelcane;
 
 public class Commands {
-
-    Calculator calculator = new Calculator();
+    Calculator calculator;
     Display display = new Display();
-    User user = new User();
+    User user = new User(this);
 
     Command command;
+    public Commands(Calculator calculator){
+        this.calculator = calculator;
+
+    }
+
 
     public void giveCommand(Command command) {
         this.command = command;
@@ -21,6 +25,7 @@ public class Commands {
         CLEARERROR,
         CLEARMEMORY,
         COSINE,
+        CUBE,
         DIVIDE,
         FACTORIAL,
         INVERSECOSINE,
@@ -51,6 +56,10 @@ public class Commands {
              */
             case COSINE:
                 calculator.cosine(user.isNumber);
+                System.out.println("It's working!");
+                break;
+            case CUBE:
+                System.out.println(calculator.cube(user.isNumber));
                 System.out.println("It's working!");
                 break;
             case DIVIDE:
