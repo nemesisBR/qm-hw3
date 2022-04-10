@@ -1,29 +1,14 @@
 pipeline {
     agent {
-              docker {
-                  image 'maven:3.8.5-jdk-11'
-                  args '-v /root/.m2:/root/.m2'
-              }
-          }
-    stages {
-        stage('Tests') {
-            steps {
-                echo 'Run the static analysis to the code' 
-            }
+        docker {
+            image 'maven:3.8.1-adoptopenjdk-11'
+            args '-v /root/.m2:/root/.m2'
         }
+    }
+    stages {
         stage('Build') {
             steps {
-                echo 'Compile the source code' 
-            }
-        }
-        stage('Static Analysis') {
-            steps {
-                echo 'Run the security check against the application' 
-            }
-        }
-        stage('Publish Artifacts') {
-            steps {
-                echo 'Save the assemblies generated from the compilation' 
+                sh 'mvn -B -DskipTests clean package'
             }
         }
     }
