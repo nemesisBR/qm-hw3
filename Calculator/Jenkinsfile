@@ -4,10 +4,20 @@ pipeline {
             maven 'maven-3.8.4'
         }
     stages {
-        stage('Build') {
+        stage('Clean') {
             steps {
                 sh 'mvn -f "Calculator/pom.xml" clean'
             }
         }
+        stage('Test') {
+                    steps {
+                        sh 'mvn -f "Calculator/pom.xml" test'
+                    }
+                }
+        stage('Build') {
+                    steps {
+                        sh 'mvn -f "Calculator/pom.xml" clean package'
+                    }
+                }
     }
 }
