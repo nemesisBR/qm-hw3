@@ -10,17 +10,7 @@ pipeline {
             }
         }
 
-        stage('Static Analysis: CheckStyle') {
-                    steps {
-                        sh 'mvn -f "Calculator/pom.xml" checkstyle:checkstyle'
-                    }
-                }
 
-        stage('Static Analysis: PMD') {
-            steps {
-                sh 'mvn -f "Calculator/pom.xml" pmd:pmd'
-            }
-        }
 
         stage('Test') {
             steps {
@@ -32,11 +22,27 @@ pipeline {
                 sh 'mvn -f "Calculator/pom.xml" package'
             }
         }
+        stage('Static Analysis: CheckStyle') {
+                    steps {
+                        sh 'mvn -f "Calculator/pom.xml" checkstyle:checkstyle'
+                    }
+                }
+
+        stage('Static Analysis: PMD') {
+            steps {
+                sh 'mvn -f "Calculator/pom.xml" pmd:pmd'
+            }
+        }
+        stage('Static Analysis: FindBugs') {
+                    steps {
+                        sh 'mvn -f "Calculator/pom.xml" findbugs:findbugs'
+                    }
+                }
         stage('Generate Reports') {
             steps {
                 recordIssues(
                     enabledForFailure: true, aggregatingResults: true,
-                    tools: [java(), checkStyle(pattern: 'Calculator/target/checkstyle-result.xml', reportEncoding: 'UTF-8'), pmdParser(pattern: 'Calculator/target/pmd.xml', reportEncoding: 'UTF-8')]
+                    tools: [java(), findBugs(pattern: 'Calculator/target/findbugsXml.xml', reportEncoding: 'UTF-8'), checkStyle(pattern: 'Calculator/target/checkstyle-result.xml', reportEncoding: 'UTF-8'), pmdParser(pattern: 'Calculator/target/pmd.xml', reportEncoding: 'UTF-8')]
                 )
 
         }
