@@ -9,7 +9,17 @@ pipeline {
                 sh 'mvn -f "Calculator/pom.xml" clean'
             }
         }
+        stage('Static Analysis: CheckStyle') {
+                    steps {
+                        sh 'mvn -f "Calculator/pom.xml" checkstyle:checkstyle'
+                    }
+                }
 
+        stage('Static Analysis: PMD') {
+            steps {
+                sh 'mvn -f "Calculator/pom.xml" pmd:pmd'
+            }
+        }
 
 
         stage('Test') {
@@ -22,17 +32,7 @@ pipeline {
                 sh 'mvn -f "Calculator/pom.xml" package'
             }
         }
-        stage('Static Analysis: CheckStyle') {
-                    steps {
-                        sh 'mvn -f "Calculator/pom.xml" checkstyle:checkstyle'
-                    }
-                }
 
-        stage('Static Analysis: PMD') {
-            steps {
-                sh 'mvn -f "Calculator/pom.xml" pmd:pmd'
-            }
-        }
 //         stage('Static Analysis: FindBugs') {
 //                     steps {
 //                         sh 'mvn -f "Calculator/pom.xml" clean install findbugs:findbugs'
