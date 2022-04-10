@@ -22,15 +22,6 @@ pipeline {
             }
         }
 
-        stage('Generate Reports') {
-            steps {
-                recordIssues(
-                    enabledForFailure: true, aggregatingResults: true,
-                    tools: [java(), checkStyle(pattern: 'checkstyle-result.xml', reportEncoding: 'UTF-8')]
-                )
-            }
-        }
-
         stage('Test') {
             steps {
                 sh 'mvn -f "Calculator/pom.xml" test'
@@ -41,6 +32,16 @@ pipeline {
                 sh 'mvn -f "Calculator/pom.xml" package'
             }
         }
+        stage('Generate Reports') {
+            steps {
+                recordIssues(
+                    enabledForFailure: true, aggregatingResults: true,
+                    tools: [java(), checkStyle(pattern: 'Calculator/target/checkstyle-result.xml', reportEncoding: 'UTF-8')]
+                )
+            }
+        }
+
+
 
     }
 }
